@@ -82,6 +82,7 @@ int main()
     points.PushBack({ 40.0f });
     points.PushBack({ 2.0f ,0.1f,0.22f});
     points.PushBack({ 3.0f ,0.6f,0.55f });
+    points.emplace_back(2.0f);
     PrintVector(points);
     
     points.PopBack();

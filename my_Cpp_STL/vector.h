@@ -46,6 +46,15 @@ public:
 		m_LastData++;
 	}
 
+	template<class... Args>
+	void emplace_back(Args&&... args)
+	{
+		if (m_LastData >= m_Capacity)
+			ReAllocate(m_Capacity + m_Capacity / 2);
+
+		new(&m_Data[m_LastData]) T(std::forward<Args>(args)...);
+	}
+
 	void PopBack()
 	{
 		if (m_LastData > 0)
