@@ -10,6 +10,12 @@ public:
 		ReAllocate(2);
 	}
 
+	~vector()
+	{
+		clear();
+		::operator delete(m_Data, m_Capacity * sizeof(T));
+	}
+
 
 	void ReAllocate(size_t newCapacity)
 	{
@@ -20,7 +26,7 @@ public:
 
 		for (size_t i = 0; i < m_LastData; i++)
 		{
-			newData[i] = std::move(m_Data[i]);
+			new (newData + i) T(std::move(m_Data[i]));
 		}
 
 		::operator delete(m_Data, m_Capacity * sizeof(T));
@@ -46,13 +52,14 @@ public:
 		m_LastData++;
 	}
 
-	template<class... Args>
-	void emplace_back(Args&&... args)
+	template<typename... Args>
+	T& emplace_back(Args&&... args)
 	{
 		if (m_LastData >= m_Capacity)
 			ReAllocate(m_Capacity + m_Capacity / 2);
 
 		new(&m_Data[m_LastData]) T(std::forward<Args>(args)...);
+		return m_Data[m_LastData++];
 	}
 
 	void PopBack()
@@ -62,6 +69,15 @@ public:
 			m_LastData--;
 			m_Data[m_LastData].~T();
 		}
+	}
+
+	void clear()
+	{
+		for (size_t i = 0; i < m_LastData; i++)
+			m_Data[i].~T();
+
+		m_LastData = 0;
+		
 	}
 
 	size_t size() const
