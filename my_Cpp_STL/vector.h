@@ -4,6 +4,10 @@
 template<typename T>
 class vector {
 
+	using iterator = T*;
+	using const_iterator = const T*;
+
+
 public:
 	vector() 
 	{
@@ -77,12 +81,37 @@ public:
 			m_Data[i].~T();
 
 		m_LastData = 0;
-		
+	}
+
+	iterator begin()
+	{
+		return m_Data;
+	}
+
+	const_iterator cbegin() const
+	{
+		return m_Data;
+	}
+
+	iterator end()
+	{
+		return m_Data + m_LastData;
+	}
+
+	const_iterator cend() const
+	{
+		return m_Data + m_LastData;
 	}
 
 	size_t size() const
 	{
 		return m_LastData;
+	}
+
+	T& at(size_t index)
+	{
+		if (index < m_LastData)
+			return m_Data[index];
 	}
 
 	T& operator[](size_t index)
