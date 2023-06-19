@@ -83,6 +83,16 @@ public:
 		m_LastData = 0;
 	}
 
+	T* data()
+	{
+		return m_Data;
+	}
+
+	constexpr const T* data() const noexcept
+	{
+		return m_Data;
+	}
+
 	iterator begin()
 	{
 		return m_Data;

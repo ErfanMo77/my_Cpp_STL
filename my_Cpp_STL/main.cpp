@@ -2,6 +2,7 @@
 
 
 #include <iostream>
+#include <algorithm>
 #include "vector.h"
 
 struct Point3 
@@ -83,10 +84,20 @@ int main()
     points.PushBack({ 2.0f ,0.1f,0.22f});
     points.PushBack({ 3.0f ,0.6f,0.55f });
 
-    for (auto& p : points)
+    for (auto it = points.begin(); it != points.end(); it++)
     {
-        std::cout << p.x << std::endl;
+        std::cout << (*it).x << std::endl;
     }
+
+    std::cout << points.data()->x << std::endl;
+
+    //for (const Point3& p : points)
+    //{
+    //    std::cout << p.x << std::endl;
+    //}
+
+
+
     //points.emplace_back(2.0f);
     //PrintVector(points);
     //
