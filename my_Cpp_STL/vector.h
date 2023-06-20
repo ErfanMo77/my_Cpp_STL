@@ -14,6 +14,16 @@ public:
 		ReAllocate(2);
 	}
 
+	vector(const std::initializer_list<T> list)
+	{
+		ReAllocate(list.size());
+
+		for (const auto& item : list)
+		{
+			PushBack(item);
+		}
+	}
+
 	~vector()
 	{
 		clear();

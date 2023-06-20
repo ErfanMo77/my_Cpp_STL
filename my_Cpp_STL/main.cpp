@@ -4,10 +4,13 @@
 #include <iostream>
 #include <algorithm>
 #include "vector.h"
+#include "array.h"
 
 struct Point3 
 {
     float x = 0.0f, y = 0.0f, z = 0.0f;
+
+    Point3() = default;
 
     Point3(float scalar)
         :x(scalar), y(scalar), z(scalar) {}
@@ -36,7 +39,7 @@ struct Point3
         return *this;
     }
 
-    Point3& operator=(Point3&& other)
+    Point3& operator=(Point3&& other) noexcept
     {
         std::cout << "point3 MOVE!\n";
         x = other.x;
@@ -53,43 +56,58 @@ struct Point3
 };
 
 template<typename T>
-void PrintVector(const vector<T>& vec)
+void PrintVector(vector<T>& vec)
 {
     std::cout << "Vector:\n";
     std::cout << vec << std::endl;
 }
 
 template<>
-void PrintVector(const vector<Point3>& vec)
+void PrintVector(vector<Point3>& vec)
 {
     std::cout << "Vector:\n";
     std::cout << "size : " << vec.size() << std::endl;
-
-    //TODO write iterators
-    for (size_t i = 0; i < vec.size(); i++) 
+  
+    for (const Point3& item : vec)
     {
-        std::cout << vec[i].x << ", " << vec[i].y << ", " << vec[i].z << std::endl;
+        std::cout << item.x << ", " << item.y << ", " << item.z << std::endl;
     }
     std::cout << "!-----------------------------------------------!\n";
 }
 
+template<size_t N>
+void PrintArray( array<Point3, N>& arr)
+{
+    std::cout << "Array:\n";
+    std::cout << "size : " << arr.size() << std::endl;
+
+    for (const auto& item : arr)
+    {
+        std::cout << item.x << ", " << item.y << ", " << item.z << std::endl;
+    }
+
+    std::cout << "!-----------------------------------------------!\n";
+}
 
 int main()
 {
     std::cout << "Hello STL!\n";
     vector<Point3> points;
 
+    array<Point3, 2> array_points = { {1.0f,0,0},{9} };
 
-    points.emplace_back( 40.0f );
-    points.PushBack({ 2.0f ,0.1f,0.22f});
-    points.PushBack({ 3.0f ,0.6f,0.55f });
+    PrintArray(array_points);
 
-    for (auto it = points.begin(); it != points.end(); it++)
-    {
-        std::cout << (*it).x << std::endl;
-    }
+    //points.emplace_back( 40.0f );
+    //points.PushBack({ 2.0f ,0.1f,0.22f});
+    //points.PushBack({ 3.0f ,0.6f,0.55f });
 
-    std::cout << points.data()->x << std::endl;
+    //for (auto it = points.begin(); it != points.end(); it++)
+    //{
+    //    std::cout << (*it).x << std::endl;
+    //}
+
+    //std::cout << points.data()->x << std::endl;
 
     //for (const Point3& p : points)
     //{
