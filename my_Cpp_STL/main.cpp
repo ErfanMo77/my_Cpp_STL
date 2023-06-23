@@ -76,7 +76,7 @@ void PrintVector(vector<Point3>& vec)
 }
 
 template<size_t N>
-void PrintArray( array<Point3, N>& arr)
+void PrintArray(const array<Point3, N>& arr)
 {
     std::cout << "Array:\n";
     std::cout << "size : " << arr.size() << std::endl;

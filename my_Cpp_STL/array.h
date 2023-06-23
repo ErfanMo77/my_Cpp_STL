@@ -64,9 +64,19 @@ public:
 		return m_Data;
 	}
 
+	const_iterator cbegin() const
+	{
+		return m_Data;
+	}
+
 	iterator end()
 	{
-		return &(m_Data[N - 1]);
+		return &(m_Data[N]);
+	}
+
+	const_iterator cend() const
+	{
+		return  &(m_Data[N]);
 	}
 
 
