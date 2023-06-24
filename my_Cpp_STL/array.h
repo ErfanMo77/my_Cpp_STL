@@ -59,6 +59,23 @@ public:
 		return N;
 	}
 
+	constexpr size_type max_size() const noexcept
+	{
+		return N;
+	}
+
+	constexpr bool empty() const noexcept
+	{
+		return begin() == end();
+	}
+
+	constexpr void fill(const T& value)
+	{
+		for (size_t i = 0; i < N; i++)
+			m_Data[i] = value;
+	}
+
+
 	iterator begin()
 	{
 		return m_Data;

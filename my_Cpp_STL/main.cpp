@@ -6,6 +6,7 @@
 #include "vector.h"
 #include "array.h"
 
+
 struct Point3 
 {
     float x = 0.0f, y = 0.0f, z = 0.0f;
@@ -48,6 +49,16 @@ struct Point3
         return *this;
     }
 
+    bool operator<(const Point3& other) const 
+    {
+        return dist2() < other.dist2();
+    }
+
+    float dist2() const
+    {
+        return x * x + y * y + z * z;
+    }
+
     ~Point3()
     {
         std::cout << "Point3 Destroy!\n";
@@ -56,19 +67,19 @@ struct Point3
 };
 
 template<typename T>
-void PrintVector(const vector<T>& vec)
+void PrintVector(vector<T>& vec)
 {
     std::cout << "Vector:\n";
     std::cout << vec << std::endl;
 }
 
 template<>
-void PrintVector(const vector<Point3>& vec)
+void PrintVector(vector<Point3>& vec)
 {
     std::cout << "Vector:\n";
     std::cout << "size : " << vec.size() << std::endl;
   
-    for (const Point3& item : vec)
+    for (const Point3& item : std::as_const(vec))
     {
         std::cout << item.x << ", " << item.y << ", " << item.z << std::endl;
     }
@@ -95,11 +106,16 @@ int main()
     vector<Point3> points;
 
     //array<Point3, 2> array_points = { {1.0f,0,0},{9} };
-
     //PrintArray(array_points);
-    Point3 p1(1.0f);
 
-    points.PushBack(Point3(1));
+    points.PushBack({ 1.0f,2.0f,3.0f });
+    points.PushBack({ 2.0f,-16.0f,3.0f });
+    points.PushBack({ 5,2.0f,-3.0f });
+    points.PushBack({ 3.0f,2.0f,3.0f });
+    points.PushBack({ 1.0f,-4.0f,3.0f });
+
+    std::sort(points.begin(), points.end());
+
 
     //points.PushBack({ 2.0f ,0.1f,0.22f});
     //points.PushBack({ 3.0f ,0.6f,0.55f });

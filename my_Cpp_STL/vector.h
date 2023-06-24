@@ -14,7 +14,7 @@ public:
 		ReAllocate(2);
 	}
 
-	vector(const std::initializer_list<T> list)
+	vector(std::initializer_list<T>&& list)
 	{
 		ReAllocate(list.size());
 
@@ -136,6 +136,11 @@ public:
 	size_t size() const
 	{
 		return m_LastData;
+	}
+
+	constexpr bool empty() const noexcept
+	{
+		return begin() == end();
 	}
 
 	T& at(size_t index)
