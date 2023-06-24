@@ -56,14 +56,14 @@ struct Point3
 };
 
 template<typename T>
-void PrintVector(vector<T>& vec)
+void PrintVector(const vector<T>& vec)
 {
     std::cout << "Vector:\n";
     std::cout << vec << std::endl;
 }
 
 template<>
-void PrintVector(vector<Point3>& vec)
+void PrintVector(const vector<Point3>& vec)
 {
     std::cout << "Vector:\n";
     std::cout << "size : " << vec.size() << std::endl;
@@ -94,11 +94,13 @@ int main()
     std::cout << "Hello STL!\n";
     vector<Point3> points;
 
-    array<Point3, 2> array_points = { {1.0f,0,0},{9} };
+    //array<Point3, 2> array_points = { {1.0f,0,0},{9} };
 
-    PrintArray(array_points);
+    //PrintArray(array_points);
+    Point3 p1(1.0f);
 
-    //points.emplace_back( 40.0f );
+    points.PushBack(Point3(1));
+
     //points.PushBack({ 2.0f ,0.1f,0.22f});
     //points.PushBack({ 3.0f ,0.6f,0.55f });
 

@@ -108,12 +108,22 @@ public:
 		return m_Data;
 	}
 
+	const_iterator begin() const
+	{
+		return m_Data;
+	}
+
 	const_iterator cbegin() const
 	{
 		return m_Data;
 	}
 
 	iterator end()
+	{
+		return m_Data + m_LastData;
+	}
+
+	const_iterator end() const
 	{
 		return m_Data + m_LastData;
 	}

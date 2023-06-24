@@ -63,6 +63,10 @@ public:
 	{
 		return m_Data;
 	}
+	const_iterator begin() const
+	{
+		return m_Data;
+	}
 
 	const_iterator cbegin() const
 	{
@@ -70,6 +74,11 @@ public:
 	}
 
 	iterator end()
+	{
+		return &(m_Data[N]);
+	}
+
+	const_iterator end() const
 	{
 		return &(m_Data[N]);
 	}
